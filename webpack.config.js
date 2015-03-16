@@ -1,5 +1,6 @@
 module.exports = {
   entry: __dirname + "/src/javascripts/main",
+  devtool: 'source-map',
   output: {
       path: __dirname + "/public",
       filename: "main.js",
@@ -16,6 +17,7 @@ module.exports = {
       { test: /\.gif/, loader: "url?limit=10000&mimetype=image/gif" },
       { test: /\.jpg/, loader: "url?limit=10000&mimetype=image/jpg" },
       { test: /\.png/, loader: "url?limit=10000&mimetype=image/png" },
-    ]
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'}
+]
   }
 }

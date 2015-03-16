@@ -2,6 +2,9 @@ require("!style!css!less!../stylesheets/main.less");
 
 var $ = require("jquery");
 var _ = require("underscore");
+var React = require('react');
+
+var AppComponent = require('./components/appComponent');
 
 require("./lib/Stuff.js");
 
@@ -33,22 +36,18 @@ var CartStore = Stuff('shopping_cart');
 CartStore.on('change', renderApp);
 
 function renderApp() {
-  var cart = CartStore.map(function (id) {
-    var product = CartStore.get(id);
-    product.id = id;
-    return product;
-  });
 
-  $('#app').html(AppComponent({
+  React.render(<AppComponent products={PRODUCTS} />, document.getElementById('app'));
+  /*$('#app').html(AppComponent({
     products: PRODUCTS,
     cart: cart
-  }));
+  }));*/
 }
 
 
 /* App Components */
 
-function AppComponent(state) {
+/*function AppComponent(state) {
   var html = [
     '<div class="shop">',
       '<% print(ShopComponent(products)) %>',
@@ -63,10 +62,10 @@ function AppComponent(state) {
   state.CartComponent = CartComponent;
 
   return _.template(html)(state);
-}
+}*/
 
 
-function ShopComponent(products) {
+/*function ShopComponent(products) {
   var html = [
     '<h1>Shop</h1>',
 
@@ -81,10 +80,10 @@ function ShopComponent(products) {
     products: products,
     ProductComponent: ProductComponent
   });
-}
+}*/
 
 
-function ProductComponent(product) {
+/*function ProductComponent(product) {
   var html = [
     '<a href="#" class="col-md-4 add-to-cart" data-product="<%= code %>">',
       '<img src="<%= img %>" alt="<%= title %>">',
@@ -92,10 +91,10 @@ function ProductComponent(product) {
   ].join("\n");
 
   return _.template(html)(product);
-}
+}*/
 
 
-function CartComponent(cart) {
+/*function CartComponent(cart) {
   var html = [
     '<h1>Your order</h1>',
 
@@ -119,10 +118,10 @@ function CartComponent(cart) {
     total: total,
     CartProductComponent: CartProductComponent
   });
-}
+}*/
 
 
-function CartProductComponent(product) {
+/*function CartProductComponent(product) {
   var html = [
     '<div class="row product">',
       '<img class="col-md-3" src="<%= product.img %>" alt="<%= product.title %>">',
@@ -144,7 +143,7 @@ function CartProductComponent(product) {
   return _.template(html)({
     product: product
   });
-}
+}*/
 
 
 $(function() {
@@ -152,46 +151,24 @@ $(function() {
 
   /* Shop handlers */
 
-  $('#app').on('click', '.add-to-cart', function(e) {
-    e.preventDefault();
-
-    var cartProduct;
-    var code = $(e.currentTarget).data('product');
-    var product = PRODUCTS.filter(function(product) {
-      return product.code === code;
-    })[0];
-
-    var cartProductId = CartStore.find(function(id) {
-      return CartStore.get(id).code === code;
-    });
-
-    if(cartProductId) {
-      cartProduct = CartStore.get(cartProductId);
-      cartProduct.quantity++;
-      CartStore.update(cartProductId, cartProduct);
-    } else {
-      // Should clone this object
-      product.quantity = 1;
-      CartStore.add(product);
-    }
-  });
+  
 
 
   /* Cart handlers */
 
-  $('#app').on('click', '.delete', function(e) {
+  /*$('#app').on('click', '.delete', function(e) {
     e.preventDefault();
     var id = $(e.target).data('product');
     CartStore.remove(id);
-  });
+  });*/
 
-  $('#app').on('change', 'input', function(e) {
+  /*$('#app').on('change', 'input', function(e) {
     var id = $(e.target).data('product');
     var value = $(e.target).val();
     var product = CartStore.get(id);
 
     product.quantity = parseInt(value);
     CartStore.update(id, product);
-  });
+  });*/
 });
 
