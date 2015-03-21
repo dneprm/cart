@@ -6,7 +6,7 @@ var ShopComponent = React.createClass({
   render: function() {
     //console.log(this.props.products);
     var productList = this.props.products.map(function(product, index){
-       return (<ProductComponent product={product} key={index} addToCart= {this.props.addToCart} />)
+       return (<ProductComponent product={product} key={index} />)
     }.bind(this));
     return (
       <div className="shopWrapper">
@@ -19,20 +19,5 @@ var ShopComponent = React.createClass({
   }
 })
 
-/*function ShopComponent(products) {
-  var html = [
-    '<h1>Shop</h1>',
 
-    '<div class="row">',
-      '<% products.forEach(function(product) {',
-        'print(ProductComponent(product))',
-      '}) %>',
-    '</div>'
-  ].join('\n');
-
-  return _.template(html)({
-    products: products,
-    ProductComponent: ProductComponent
-  });
-}*/
 module.exports = ShopComponent;
