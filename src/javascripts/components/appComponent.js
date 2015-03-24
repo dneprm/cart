@@ -1,24 +1,20 @@
 var React = require('react');
-var _ = require("underscore");
+var Reflux = require('reflux');
 var ShopComponent = require('./shopComponent');
 var CartComponent = require('./cartComponent');
 var CartStore = require('../store/CartStore');
 
 
 var AppComponent = React.createClass({
+  mixins: [Reflux.listenTo(CartStore, "onUpdateState")],
   getInitialState: function() {
     return { cart: [] };
   },
-  updateState: function() {
-    this.setState({cart: CartStore.getCartState()})
-  },
-  componentWillMount: function() {
-    CartStore.addChangeListener(this.updateState);
-  },
-  componentWillUnmount: function() {
-    CartStore.removeChangeListener(this.updateState);
-  },
+  onUpdateState: function(cart) {
+    this.setState({cart: cart});
+        console.log(cart);
 
+  },
   render: function() {
     return (
       <div className="app">
@@ -28,22 +24,5 @@ var AppComponent = React.createClass({
     );
   }
 })
-
-/*function AppComponent(state) {
-  var html = [
-    '<div class="shop">',
-      '<% print(ShopComponent(products)) %>',
-    '</div>',
-
-    '<div class="cart">',
-      '<% print(CartComponent(cart)) %>',
-    '</div>',
-  ].join("\n");
-
-  state.ShopComponent = ShopComponent;
-  state.CartComponent = CartComponent;
-
-  return _.template(html)(state);
-}*/
 
 module.exports = AppComponent;

@@ -1,5 +1,4 @@
 var React = require('react');
-var _ = require("underscore");
 var CartProductComponent = require('./cartProductComponent');
 
 var CartComponent = React.createClass({

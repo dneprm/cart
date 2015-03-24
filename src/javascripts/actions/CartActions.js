@@ -1,7 +1,15 @@
-var appDispatcher = require('../dispatcher/CartDispatcher');
-var constants = require('../constants/CartConstants');
+//var appDispatcher = require('../dispatcher/CartDispatcher');
+//var constants = require('../constants/CartConstants');
+var Reflux = require('reflux');
 var Backend = require('../utils/backend');
-var Actions = {
+
+var Actions = Reflux.createActions([
+  "recieveCartData",
+  "addToCart",
+  "removeFromCart",
+  "cartChangeQuantity"
+]);
+/*var Actions = {
   recieveCartData: function(data) {
     appDispatcher.dispatch({
       actionType: constants.RECEIVE_CART_DATA,
@@ -31,5 +39,5 @@ var Actions = {
     });
    Backend.changeQuantity(code, quantity);
   }
-}
+}*/
 module.exports = Actions;
