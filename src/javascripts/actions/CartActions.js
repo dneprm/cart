@@ -9,35 +9,10 @@ var Actions = Reflux.createActions([
   "removeFromCart",
   "cartChangeQuantity"
 ]);
-/*var Actions = {
-  recieveCartData: function(data) {
-    appDispatcher.dispatch({
-      actionType: constants.RECEIVE_CART_DATA,
-      data: data
-    })
-    //Backend.getAll();
-  },
-  addToCart: function(code) {
-    appDispatcher.dispatch({
-      actionType: constants.CART_ADD,
-      code: code
-    });
-   Backend.add(code);
-  },
-  removeFromCart: function(code) {
-    appDispatcher.dispatch({
-      actionType: constants.CART_REMOVE,
-      code: code
-    });
-   Backend.remove(code);
-  },
-  cartChangeQuantity: function(code, quantity) {
-    appDispatcher.dispatch({
-      actionType: constants.CART_CHANGE_QUANTITY,
-      code: code,
-      quantity: quantity
-    });
-   Backend.changeQuantity(code, quantity);
-  }
-}*/
+
+Actions.addToCart.preEmit = Backend.add;
+Actions.removeFromCart.preEmit = Backend.remove;
+Actions.cartChangeQuantity.preEmit = Backend.changeQuantity;
+
+
 module.exports = Actions;

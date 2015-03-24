@@ -28,21 +28,21 @@ var CartStore = Reflux.createStore({
       cartProduct = assign({}, product, {quantity: 1});
       _cart.push(cartProduct);
     }
-   Backend.add(code);
+   //Backend.add(code);
    this.trigger(_cart);
   },
   removeFromCart: function(code) {
     var cartProduct = this.getProduct(code);
     _cart.splice(_cart.indexOf(cartProduct), 1);
     
-    Backend.remove(code);
+    //Backend.remove(code);
     this.trigger(_cart);
   },
   cartChangeQuantity: function(code, quantity) {
     var cartProduct = this.getProduct(code);
     cartProduct.quantity = quantity;
     
-    Backend.changeQuantity(code, quantity);
+    //Backend.changeQuantity(code, quantity);
     this.trigger(_cart);
   },
   isInCart: function(product) {
